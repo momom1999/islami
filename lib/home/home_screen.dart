@@ -3,6 +3,9 @@ import 'package:islami/home/hadeth/hadeth_tab.dart';
 import 'package:islami/home/quran/quran_tab.dart';
 import 'package:islami/home/radio/radio_tab.dart';
 import 'package:islami/home/sebha/sebha_tab.dart';
+import 'package:islami/home/settings/settings_tab.dart';
+import 'package:islami/providers/settings_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routename = 'home';
@@ -16,10 +19,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/main_background.png'),
+              image: AssetImage(settingsProvider.getMainBackgroundImage()),
               fit: BoxFit.fill)),
       child: Scaffold(
         appBar: AppBar(
@@ -37,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).primaryColor,
                   icon:
-                      const ImageIcon(AssetImage('assets/images/ic_quran.png')),
+                  const ImageIcon(AssetImage('assets/images/ic_quran.png')),
                   label: 'Quran'),
               BottomNavigationBarItem(
                   backgroundColor: Theme.of(context).primaryColor,
@@ -54,11 +58,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon:
                       const ImageIcon(AssetImage('assets/images/ic_radio.png')),
                   label: 'Radio'),
+              BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  icon: const Icon(Icons.settings),
+                  label: 'Settings'),
             ]),
         body: tabs[selectedIndex],
       ),
     );
   }
 
-  List<Widget> tabs = [QurabTab(), HadethTab(), SebhaTab(), RadioTab()];
+  List<Widget> tabs = [
+    QurabTab(),
+    HadethTab(),
+    SebhaTab(),
+    RadioTab(),
+    SettingTab()
+  ];
 }

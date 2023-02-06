@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:islami/providers/settings_provider.dart';
 import 'package:islami/sura_details/sura_details_args.dart';
 import 'package:islami/sura_details/verse_widget.dart';
+import 'package:provider/provider.dart';
 
 class SuraDetailsScreen extends StatefulWidget {
   static const String routeName = 'sura-details';
@@ -19,10 +21,11 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
         (ModalRoute.of(context)?.settings.arguments) as SuraDetailsScreenArgs;
     if (verses.isEmpty) readFile(args.index + 1);
 
+    var settingsProvider = Provider.of<SettingsProvider>(context);
     return Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/main_background.png'),
+                image: AssetImage(settingsProvider.getMainBackgroundImage()),
                 fit: BoxFit.fill)),
         child: Scaffold(
           appBar: AppBar(
@@ -44,7 +47,7 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
                     itemCount: verses.length,
                     separatorBuilder: (_, __) {
                       return Container(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).accentColor,
                         height: 1,
                         width: double.infinity,
                         margin: EdgeInsets.symmetric(horizontal: 64),
