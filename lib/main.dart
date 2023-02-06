@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:islami/hadeth_details/hadeth_details.dart';
 import 'package:islami/home/home_screen.dart';
 import 'package:islami/my_theme.dart';
@@ -20,6 +22,14 @@ class MyApplication extends StatelessWidget {
       theme: MyTheme.lightTheme,
       darkTheme: MyTheme.darkTheme,
       themeMode: settingsProvider.currentTheme,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: Locale(settingsProvider.currentLang),
       routes: {
         HomeScreen.routename: (_) => HomeScreen(),
         SuraDetailsScreen.routeName: (_) => SuraDetailsScreen(),
